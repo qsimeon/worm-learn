@@ -9,9 +9,9 @@ A connectome—the comprehensive map of neural connections in a brain—can be r
 
 ### Conceptual Framework
 
-**Traditional View**: A connectome is an N×N adjacency matrix representing physical or functional connections between $N$ neurons, with edge weights quantifying connection strength (synaptic weights, correlation coefficients, etc.).
+**Traditional View**: A connectome is an $N×N$ adjacency matrix representing physical or functional connections between $N$ neurons, with edge weights quantifying connection strength (synaptic weights, correlation coefficients, etc.).
 
-**Proposed Reframing**: This same $N×N$ matrix can be viewed as an attention matrix in a self-attention mechanism, where the weight $A[i,j]$ represents how much neuron i needs to "pay attention to" neuron $j$ to reconstruct its own representation.
+**Proposed Reframing**: This same $N×N$ matrix can be viewed as an attention matrix in a self-attention mechanism, where the weight $A[i,j]$ represents how much neuron $i$ needs to "pay attention to" neuron $j$ to reconstruct its own representation.
 
 **Key Analogy to Sequence Modeling**: 
 - In causal language modeling: tokens are sequence elements, the task is next-token prediction, and a causal mask prevents "seeing the future"
@@ -27,19 +27,19 @@ The model must reconstruct each neuron's embedding using only the embeddings of 
 
 $ê_i = f(e_1, e_2, ..., e_{i-1}, e_{i+1}, ..., e_N)$
 
-where f involves computing attention weights (the emerging connectome) and using them to combine other neurons' embeddings.
+where $f$ involves computing attention weights (the emerging connectome) and using them to combine other neurons' embeddings.
 
 **Data Augmentation via Random Projections**:
 Since we have only one $(N, D)$ embedding matrix from the original transcriptome data, you need to generate multiple training samples. Our innovation is to create synthetic but meaningful variations by:
-1. Initializing random MLPs (e.g., 3-layer networks mapping D→D)
-2. Passing the original (N, D) matrix through these random MLPs
+1. Initializing random MLPs (e.g., $3$-layer networks mapping $D→D$)
+2. Passing the original $(N, D)$ matrix through these random MLPs
 3. Treating each random MLP as generating one sample in our dataset
 
-Critically, each MLP transforms all N neurons identically ($N$ acts as a batch dimension), preserving the relative relationships between neuron embeddings while creating novel projections. This allows generation of effectively unlimited training samples.
+Critically, each MLP transforms all $N$ neurons identically ($N$ acts as a batch dimension), preserving the relative relationships between neuron embeddings while creating novel projections. This allows generation of effectively unlimited training samples.
 
 **Model Architecture**:
 An `AttentionHeads` module that:
-1. Takes input of shape (batch, N, D) where batch contains different random projections
+1. Takes input of shape (batch, $N$, $D$) where batch contains different random projections
 2. Projects each neuron embedding to queries, keys, and values
 3. Computes attention scores between all neuron pairs
 4. Applies a diagonal mask (forcing self-attention weights to zero)
@@ -63,7 +63,7 @@ The hypothesis is that transcriptomic similarity (as captured by the embeddings)
 
 ### Why _C. elegans_?
 _C. elegans_ is ideal because:
-1. Complete wired connectome is known (302 neurons in hermaphrodite)
+1. Complete wired connectome is known ($302$ neurons in hermaphrodite)
 2. Functional connectomes from controlled experiments exist
 3. Single-cell transcriptomic data available for most neuron classes
 4. Ground truth allows validation of the learned attention matrices
