@@ -20,10 +20,10 @@ A connectome—the comprehensive map of neural connections in a brain—can be r
 ### Simplified Implementation Strategy (Focus on Transcriptomic Data)
 
 **Neural Tokens as Transcriptomic Embeddings**:
-For _C. elegans_, we have bulk-sorted transcriptome data (gene expression profiles) for $~41$$ neuron classes across $~31,000$ genes. Each neuron class can be embedded into a D-dimensional space using dimensionality reduction (PCA, t-SNE, etc.) on this transcriptomic data, creating an $(N, D)$ matrix where $N$ is the number of neuron classes.
+For _C. elegans_, we have transcriptome data (gene expression profiles) for $N$ neuron classes across $>30,000$ genes. Each neuron class can be embedded into a $D$-dimensional space using dimensionality reduction (PCA, t-SNE, etc.) on this transcriptomic data, creating an $(N, D)$ matrix where $N$ is the number of neuron classes.
 
 **The Reconstruction Task**:
-The model must reconstruct each neuron's embedding using only the embeddings of all other neurons. This is enforced through a diagonal attention mask that prevents self-attention (neuron i cannot attend to itself). Mathematically, for neuron i with embedding e_i, the model learns:
+The model must reconstruct each neuron's embedding using only the embeddings of all other neurons. This is enforced through a diagonal attention mask that prevents self-attention (neuron i cannot attend to itself). Mathematically, for neuron $i$ with embedding $e_i$, the model learns:
 
 $ê_i = f(e_1, e_2, ..., e_{i-1}, e_{i+1}, ..., e_N)$
 
