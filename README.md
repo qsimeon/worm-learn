@@ -56,8 +56,8 @@ To validate that the nonlinear attention mechanism captures something beyond sim
 
 ### Validation Strategy
 Compare the learned attention matrices (connectomes) to ground-truth connectivity data for _C. elegans_:
-1. **Wired connectome**: Physical synaptic connections from electron microscopy (Witvliet et al. 2020 data available in our workspace)
-2. **Functional connectome**: Correlation-based connectivity from paired stimulation experiments (Randi et al. 2023 data in our demo notebook)
+1. **Wired connectome**: Physical synaptic connections from electron microscopy (Witvliet et al. 2020 data available in our demo notebook)
+2. **Functional connectome**: Correlation-based connectivity from paired stimulation experiments (Randi et al. 2023 data available in our workspace)
 
 The hypothesis is that transcriptomic similarity (as captured by the embeddings) should correlate with connectivity—neurons with similar gene expression patterns may be more likely to connect or have functional relationships.
 
